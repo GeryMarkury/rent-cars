@@ -7,7 +7,7 @@ export const CarsList = ({ cars }) => {
         <ul className={css.carsList}>
             {cars.map((car) => (
         <li key={car.id}>
-            <CarCard img={car.img} make={car.make} model={car.model} year={car.year} price={car.rentalPrice} address={car.address} company={car.rentalCompany} type={car.type} id={car.id} accessories={car.accessories} />
+                    <CarCard obj={car} img={car.img} make={car.make} model={car.model} year={car.year} price={car.rentalPrice} address={car.address} company={car.rentalCompany} type={car.type} id={car.id} accessories={car.accessories} />
         </li>
       ))}
 </ul>

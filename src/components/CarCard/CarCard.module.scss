@@ -1,6 +1,7 @@
 @import "../../scss/";
 
 .container {
+    position: relative;
     width: 274px;
     height: 426px;
 }
@@ -15,4 +16,27 @@
 .cardTitle {
     display: flex;
     justify-content: space-between;
+}
+
+.favoriteIcon {
+    width: 18px;
+    height: 18px;
+    fill: $btnTextColor;
+    opacity: 80%;
+
+&:hover {
+    fill: $accentColor;
+}
+}
+
+.favoriteBtn {
+    position: absolute;
+    right: 14px;
+    top: 14px;
+    background: transparent;
+}
+
+.favoriteIconActive {
+    @extend .favoriteIcon;
+    fill: $accentColor;
 }
