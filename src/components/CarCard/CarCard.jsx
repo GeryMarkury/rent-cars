@@ -1,4 +1,5 @@
 import Button from "../Button/Button";
+import css from "./CarCard.module.scss";
 
 export const CarCard = ({ img, make, model, type, year, price, address, company, id, accessories }) => {
     const fullAddress = address.split(', ');
@@ -11,11 +12,11 @@ export const CarCard = ({ img, make, model, type, year, price, address, company,
     };
 
     return (
-        <div>
-            <img src={img} alt={make} />
+        <div className={css.container}>
+            <img src={img} alt={make} className={css.img} />
             <button type="button"></button>
             <div>
-                <div><p>{make} <span>{model}</span>, {year}</p>
+                <div className={css.cardTitle}><p>{make} <span>{model}</span>, {year}</p>
                     <p>{price}</p></div>
                 <ul>
                     <li>{city}</li>

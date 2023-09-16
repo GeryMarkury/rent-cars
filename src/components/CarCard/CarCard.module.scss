@@ -1,0 +1,18 @@
+@import "../../scss/";
+
+.container {
+    width: 274px;
+    height: 426px;
+}
+
+.img {
+    width: 274px;
+    height: 268px;
+    border-radius: 14px;
+    object-fit: cover;
+}
+
+.cardTitle {
+    display: flex;
+    justify-content: space-between;
+}
