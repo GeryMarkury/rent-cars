@@ -11,7 +11,7 @@ export const SharedLayout = () => {
         </NavLink>
         <NavLink to="/catalog">Catalog</NavLink>
         <NavLink to="/favorites">Favorites</NavLink>
-      </nav>
+        </nav>
       </header>
         <Outlet />
     </div>

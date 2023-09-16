@@ -1,0 +1,22 @@
+@import "../../scss/";
+
+.buttonMain {
+background-color: $accentColor;
+padding: 12px 99.5px;
+color: $btnTextColor;
+font-weight: $fontWeightSemiBold;
+line-height: calc(20/14);
+
+transition-property: background-color;
+    transition-duration: $transitionDuration;
+    transition-timing-function: $transitionTimingFunction;
+
+&:hover {
+        background-color: $btnHoverColor;
+    }
+}
+
+.searchBtn {
+    @extend .buttonMain;
+    padding: 14px 44px;
+}
