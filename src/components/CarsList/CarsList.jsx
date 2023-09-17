@@ -1,35 +1,8 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import { CarCard } from "../CarCard/CarCard";
 import css from "./CarsList.module.scss";
 
-export const CarsList = ({ cars }) => {
-    const [carsInStorage, setCarsInStorage] = useState([]);
-    
-    const CARS_STORAGE = "cars";
-
-    useEffect(() => {
-    const carsDataJson = localStorage.getItem(CARS_STORAGE);
-      if (carsDataJson) {
-        const storedCars = JSON.parse(carsDataJson);
-            setCarsInStorage(storedCars);
-      } else {
-        localStorage.setItem(CARS_STORAGE, "[]")
-      }
-    }, [])
-
-    const addToFavorites = (car) => {
-    const updatedCars = [...carsInStorage, car];
-    setCarsInStorage(updatedCars);
-    localStorage.setItem(CARS_STORAGE, JSON.stringify(updatedCars));
-    }
-    
-    const removeFromFavorites = (car) => {
-    const updatedCars = carsInStorage.filter(item => item.id !== car.id);
-    setCarsInStorage(updatedCars);
-    localStorage.setItem(CARS_STORAGE, JSON.stringify(updatedCars));
-  }
-
-
+export const CarsList = ({ cars, carsInStorage, addToFavorites, removeFromFavorites }) => {
     return (
         <ul className={css.carsList}>
             {cars.map((car) => (
