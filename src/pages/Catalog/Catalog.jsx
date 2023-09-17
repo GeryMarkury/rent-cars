@@ -6,21 +6,27 @@ import { fetchAllCars } from "../../API";
 const Catalog = () => {
     const [cars, setCars] = useState([]);
     const [carsInStorage, setCarsInStorage] = useState([]);
+    const [page, setPage] = useState(1);
+    const [loadMoreVisible, setLoadMoreVisible] = useState(false);
     
     const CARS_STORAGE = "cars";
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetchAllCars();
-                console.log(response);
-                setCars(response);
+                const response = await fetchAllCars(page);
+                if (response.length < 8) {
+                    setLoadMoreVisible(false);
+                } else {
+                    setLoadMoreVisible(true);
+                }
+                setCars((prevCars) => [...prevCars, ...response]);
             } catch (error) {
                 console.error("Error fetching cars:", error);
             }
-        }
+        };
         fetchData();
-    }, []);
+    }, [page]);
 
     useEffect(() => {
         const carsDataJson = localStorage.getItem(CARS_STORAGE);
@@ -43,12 +49,17 @@ const Catalog = () => {
         setCarsInStorage(updatedCars);
         localStorage.setItem(CARS_STORAGE, JSON.stringify(updatedCars));
     };
+
+    const handleLoadMore = () => {
+        setPage((prevPage) => prevPage + 1);
+    };
     
     return (
         cars && (<div>
+            {loadMoreVisible && <button type="button" onClick={handleLoadMore}>Load more</button>}
             <Sidebar />
             <CarsList cars={cars} carsInStorage={carsInStorage} addToFavorites={addToFavorites}
-          removeFromFavorites={removeFromFavorites} />
+                removeFromFavorites={removeFromFavorites} />
         </div>)
     )
 };

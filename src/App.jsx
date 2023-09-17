@@ -5,8 +5,6 @@ import Catalog from './pages/Catalog/Catalog';
 import Favorites from './pages/Favorites/Favorites';
 
 function App() {
-
-
   return (
     <>
       <Routes>

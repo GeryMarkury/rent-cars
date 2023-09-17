@@ -41,7 +41,7 @@ export const CarCard = ({ obj, img, make, model, type, year, price, address, com
                     <li>{accessory}</li>
                 </ul>
             </div>
-            <Button onClick={handleClick} title="Load more" />
+            <Button onClick={handleClick} title="Learn more" />
         </div>
     )
 }
