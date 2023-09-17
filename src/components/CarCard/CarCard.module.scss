@@ -11,6 +11,7 @@
     height: 268px;
     border-radius: 14px;
     object-fit: cover;
+    margin-bottom: 14px;
 }
 
 .cardTitle {
@@ -39,4 +40,41 @@
 .favoriteIconActive {
     @extend .favoriteIcon;
     fill: $accentColor;
+}
+
+.make {
+    font-size: $bigFontSize;
+    line-height: calc(24/16);
+    font-weight: $fontWeightMedium;
+    margin-bottom: 8px;
+}
+
+.model {
+    color: $accentColor;
+}
+
+.cardInfoList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    width: 270px;
+    margin-bottom: 28px;
+}
+
+.cardInfoListItem {
+    font-size: $smallFontSize;
+        line-height: calc(18/12);
+        opacity: 50%;
+        position: relative;
+}
+
+.cardInfoListItem:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -6px;
+    width: 1px;
+    height: 16px;
+    background-color: $mainFontColor;
+    opacity: 10%;
 }

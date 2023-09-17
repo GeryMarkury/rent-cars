@@ -1,5 +1,5 @@
-import Button from "../Button/Button";
-import cssBtn from "/src/components/Button/Button.module.scss";
+// import Button from "../Button/Button";
+// import cssBtn from "/src/components/Button/Button.module.scss";
 
 export const Sidebar = () => {
 
@@ -11,7 +11,7 @@ export const Sidebar = () => {
 
     return (
         <div>
-            <Button type="submit" title="Search" onClick={handleClick} propClass={cssBtn.searchBtn} />
+            {/* <Button type="submit" title="Search" onClick={handleClick} propClass={cssBtn.searchBtn} /> */}
         </div>
     )
 }

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import css from './Modal.module.scss';
+import icons from '../../images/icons.svg';
 
 export default function Modal({ carData, onClick }) {
 	useEffect(() => {
@@ -32,26 +33,27 @@ export default function Modal({ carData, onClick }) {
 
   return (
     <div className={css.overlay} onClick={handleOverlayClick}>
-      <div className={css.modal}>
-              <img src={img} alt={make} />
-              <p>{make} <span>{model}</span>, {year}</p>
-              <ul><li>{city}</li><li>Ukraine</li><li>Id: {id}</li><li>Year: {year}</li><li>Type: {type}</li><li>Fuel Consumption: {fuelConsumption}</li><li>Engine Size: {engineSize}</li></ul>
-              <p>{description}</p>
-              <p>Accessories and functionalities:</p>
-              <ul>{accessories.map((item, index) => (
-          <li key={index}>{item}</li>
+          <div className={css.modal}>
+              <button type="button" onClick={onClick} className={css.closeModalBtn}><svg className={css.closeModalBtnIcon}><use href={icons + "#close"}></use></svg></button>
+              <img src={img} alt={make} className={css.modalImg} />
+              <p className={css.modalTitle}>{make} <span className={css.modalTitleAccent}>{model}</span>, {year}</p>
+              <ul className={css.mainInfo}><li className={css.mainInfoItem}>{city}</li><li className={css.mainInfoItem}>Ukraine</li><li className={css.mainInfoItem}>Id: {id}</li><li className={css.mainInfoItem}>Year: {year}</li><li className={css.mainInfoItem}>Type: {type}</li><li className={css.mainInfoItem}>Fuel Consumption: {fuelConsumption}</li><li className={css.mainInfoItem}>Engine Size: {engineSize}</li></ul>
+              <p className={css.description}>{description}</p>
+              <div className={css.infoContainer}><p className={css.secondaryTitle}>Accessories and functionalities:</p>
+              <ul className={css.info}>{accessories.map((item, index) => (
+          <li key={index} className={css.mainInfoItem}>{item}</li>
               ))}</ul>
-              <ul>{functionalities.map((item, index) => (
-          <li key={index}>{item}</li>
-              ))}</ul>
-              <p>Rental conditions:</p>
-              <ul>{conditionsArr.map((line, index) => {
+              <ul className={css.info}>{functionalities.map((item, index) => (
+          <li key={index} className={css.mainInfoItem}>{item}</li>
+              ))}</ul></div>
+              <p className={css.secondaryTitle}>Rental conditions:</p>
+              <ul className={css.conditionsList}>{conditionsArr.map((line, index) => {
           const colonIndex = line.indexOf(':');
           return (
-            <li key={index}>
+              <li key={index} className={css.conditionsListItem}>
               {colonIndex !== -1 ? (
                 <>
-                  {line.slice(0, colonIndex)}<span>{line.slice(colonIndex + 1)}</span>
+                          {line.slice(0, colonIndex)} : <span className={css.conditionListItemAccent}>{line.slice(colonIndex + 1)}</span>
                 </>
               ) : (
                 line
@@ -59,8 +61,8 @@ export default function Modal({ carData, onClick }) {
             </li>
           );
               })}
-                  <li>Mileage: {formattedMileage}</li>
-                  <li>Price: {rentalPrice}</li></ul>
+                  <li className={css.conditionsListItem}>Mileage: <span className={css.conditionListItemAccent}>{formattedMileage}</span></li>
+                  <li className={css.conditionsListItem}>Price: <span className={css.conditionListItemAccent}>{rentalPrice}</span></li></ul>
         <a href="tel:+380730000000" className={css.rentalCarBtn}>Rental car</a>
       </div>
     </div>

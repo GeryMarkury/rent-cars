@@ -24,13 +24,127 @@
 
 .rentalCarBtn {
     display: inline-block;
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
+    background-color: $accentColor;
+    color: $btnTextColor;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 12px;
+    font-weight: $fontWeightSemiBold;
+    line-height: calc(20/14);
+    padding: 12px 50px;
+    font-size: $mainFontSize;
 }
 
 .rentalCarBtn:hover {
-    background-color: #0056b3;
+    background-color: $btnHoverColor;
+}
+
+.closeModalBtn {
+    position: absolute;
+        top: 16px;
+        right: 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        background-color: transparent;
+        padding: 0;
+}
+
+.closeModalBtnIcon {
+    stroke: $mainFontColor;
+    width: 12px;
+    height: 12px;
+}
+
+.modalImg {
+    width: 461px;
+    height: 248px;
+    border-radius: 14px;
+    margin-bottom: 14px;
+    object-fit: cover;
+}
+
+.modalTitle {
+font-weight: $fontWeightMedium;
+font-size: 18px;
+line-height: calc(24/18);
+margin-bottom: 8px;
+}
+
+.modalTitleAccent {
+    @extend .modalTitle;
+    color: $accentColor;
+}
+
+.mainInfo {
+    display: flex;
+    width: 277px;
+    gap: 4px 12px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+
+.mainInfoItem {
+    font-size: $smallFontSize;
+    line-height: calc(18/12);
+    opacity: 50%;
+    position: relative;
+}
+
+.mainInfoItem:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -6px;
+    width: 1px;
+    height: 16px;
+    background-color: $mainFontColor;
+    opacity: 10%;
+}
+
+.description{
+    font-size: $mainFontSize;
+    line-height: calc(20/14);
+    margin-bottom: 24px;
+}
+
+.secondaryTitle {
+    font-size: $mainFontSize;
+    line-height: calc(20/14);
+    font-weight: $fontWeightMedium;
+    margin-bottom: 8px;
+}
+
+.info {
+    @extend .mainInfo;
+    width: 461px;
+    gap: 4px 12px;
+    margin-bottom: 4px;
+}
+
+.infoContainer {
+    margin-bottom: 20px;
+}
+
+.conditionsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+    width: 461px;
+}
+
+.conditionsListItem {
+    background-color: #f9f9f9;
+    border-radius: 35px;
+    padding: 7px 14px;
+    font-size: $smallFontSize;
+    color: #363535;
+    line-height: calc(18/12);
+}
+
+.conditionListItemAccent {
+    font-weight: $fontWeightSemiBold;
+    color: $accentColor;
 }

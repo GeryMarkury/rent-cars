@@ -29,16 +29,16 @@ export const CarCard = ({ obj, img, make, model, type, year, price, address, com
             <img src={img} alt={make} className={css.img} />
             {isFavorite ? <button type="button" className={css.favoriteBtn} onClick={() => handleRemoveFromFavorites(obj)}><svg className={css.favoriteIconActive}><use href={icons + "#favorite"}></use></svg></button> : <button type="button" className={css.favoriteBtn} onClick={() => handleAddToFavorites(obj)}><svg className={css.favoriteIcon}><use href={icons + "#favorite"}></use></svg></button>}
             <div>
-                <div className={css.cardTitle}><p>{make} <span>{model}</span>, {year}</p>
-                    <p>{price}</p></div>
-                <ul>
-                    <li>{city}</li>
-                    <li>Ukraine</li>
-                    <li>{company}</li>
-                    <li>{type}</li>
-                    <li>{make}</li>
-                    <li>{id}</li>
-                    <li>{accessory}</li>
+          <div className={css.cardTitle}><p className={css.make}>{make} <span className={css.model}>{model}</span>, {year}</p>
+                    <p className={css.make}>{price}</p></div>
+          <ul className={css.cardInfoList}>
+            <li className={css.cardInfoListItem}>{city}</li>
+                    <li className={css.cardInfoListItem}>Ukraine</li>
+                    <li className={css.cardInfoListItem}>{company}</li>
+                    <li className={css.cardInfoListItem}>{type}</li>
+                    <li className={css.cardInfoListItem}>{make}</li>
+                    <li className={css.cardInfoListItem}>{id}</li>
+                    <li className={css.cardInfoListItem}>{accessory}</li>
                 </ul>
             </div>
             <Button onClick={handleClick} title="Learn more" />

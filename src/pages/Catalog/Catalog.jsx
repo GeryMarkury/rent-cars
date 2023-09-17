@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { CarsList } from "../../components/CarsList/CarsList";
+import Button from "../../components/Button/Button";
 import Modal from "../../components/Modal/Modal";
 import { fetchAllCars } from "../../API";
+import css from "./Catalog.module.scss";
+import cssBtn from "/src/components/Button/Button.module.scss";
 
 const Catalog = () => {
     const [cars, setCars] = useState([]);
@@ -69,11 +72,11 @@ const Catalog = () => {
     
     return (
         cars && (<div>
-            {loadMoreVisible && <button type="button" onClick={handleLoadMore}>Load more</button>}
             <Sidebar />
             <CarsList cars={cars} carsInStorage={carsInStorage} addToFavorites={addToFavorites}
                 removeFromFavorites={removeFromFavorites} openModal={handleLearnMore} />
             {isShowModal && selectedCar && <Modal carData={selectedCar} onClick={handleCloseModal} />}
+            {loadMoreVisible && <div className={css.btnContainer}><Button type="button" title="Load more" onClick={handleLoadMore} propClass={cssBtn.loadMoreBtn} /></div>}
         </div>)
     )
 };

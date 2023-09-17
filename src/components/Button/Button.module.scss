@@ -21,3 +21,12 @@ transition-property: background-color;
     @extend .buttonMain;
     padding: 14px 44px;
 }
+
+.loadMoreBtn {
+    background-color: transparent;
+    color: $accentColor;
+    font-size: $bigFontSize;
+    font-weight: $fontWeightMedium;
+    line-height: calc(24/16);
+    text-decoration: underline;
+}
