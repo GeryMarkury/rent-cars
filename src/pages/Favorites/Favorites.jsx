@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { CarsList } from "../../components/CarsList/CarsList";
+import Modal from "../../components/Modal/Modal";
 
 const Favorites = () => {
     const [carsInStorage, setCarsInStorage] = useState([]);
+    const [isShowModal, setIsShowModal] = useState(false);
+    const [selectedCar, setSelectedCar] = useState(null);
     
     const CARS_STORAGE = "cars";
 
@@ -28,12 +31,23 @@ const Favorites = () => {
         setCarsInStorage(updatedCars);
         localStorage.setItem(CARS_STORAGE, JSON.stringify(updatedCars));
     };
+
+    const handleLearnMore = (carData) => {
+        setSelectedCar(carData);
+        setIsShowModal(true);
+    }
+
+    const handleCloseModal = () => {
+        setSelectedCar(null);
+        setIsShowModal(false);
+    }
     
     return (
-        carsInStorage ? (<div>
+        carsInStorage.length > 0 ? (<div>
             <Sidebar />
             <CarsList cars={carsInStorage} carsInStorage={carsInStorage} addToFavorites={addToFavorites}
-          removeFromFavorites={removeFromFavorites} />
+                removeFromFavorites={removeFromFavorites} openModal={handleLearnMore}/>
+            {isShowModal && selectedCar && <Modal carData={selectedCar} onClick={handleCloseModal} />}
         </div>) : (<p>There are no cars in your favorites.</p>)
     )
 };

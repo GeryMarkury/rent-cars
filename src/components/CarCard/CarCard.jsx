@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 import css from "./CarCard.module.scss";
 import icons from '/src/images/icons.svg';
 
-export const CarCard = ({ obj, img, make, model, type, year, price, address, company, id, accessories, isInFavorites, addToFavorites, removeFromFavorites }) => {
+export const CarCard = ({ obj, img, make, model, type, year, price, address, company, id, accessories, isInFavorites, addToFavorites, removeFromFavorites, openModal }) => {
     const [isFavorite, setIsFavorite] = useState(isInFavorites);
 
     const fullAddress = address.split(', ');
@@ -21,7 +21,7 @@ export const CarCard = ({ obj, img, make, model, type, year, price, address, com
     }
 
    const handleClick = () => {
-        console.log("Open modal");
+        openModal(obj);
     };
 
     return (

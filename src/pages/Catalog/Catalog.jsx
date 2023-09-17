@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { CarsList } from "../../components/CarsList/CarsList";
+import Modal from "../../components/Modal/Modal";
 import { fetchAllCars } from "../../API";
 
 const Catalog = () => {
@@ -8,6 +9,8 @@ const Catalog = () => {
     const [carsInStorage, setCarsInStorage] = useState([]);
     const [page, setPage] = useState(1);
     const [loadMoreVisible, setLoadMoreVisible] = useState(false);
+    const [isShowModal, setIsShowModal] = useState(false);
+    const [selectedCar, setSelectedCar] = useState(null);
     
     const CARS_STORAGE = "cars";
 
@@ -53,13 +56,24 @@ const Catalog = () => {
     const handleLoadMore = () => {
         setPage((prevPage) => prevPage + 1);
     };
+
+    const handleLearnMore = (carData) => {
+        setSelectedCar(carData);
+        setIsShowModal(true);
+    }
+
+    const handleCloseModal = () => {
+        setSelectedCar(null);
+        setIsShowModal(false);
+    }
     
     return (
         cars && (<div>
             {loadMoreVisible && <button type="button" onClick={handleLoadMore}>Load more</button>}
             <Sidebar />
             <CarsList cars={cars} carsInStorage={carsInStorage} addToFavorites={addToFavorites}
-                removeFromFavorites={removeFromFavorites} />
+                removeFromFavorites={removeFromFavorites} openModal={handleLearnMore} />
+            {isShowModal && selectedCar && <Modal carData={selectedCar} onClick={handleCloseModal} />}
         </div>)
     )
 };
