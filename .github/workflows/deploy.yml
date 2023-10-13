@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies 🆕
         run: yarn
       - name: Build 🛠
-        run: yarn run build && cp ./dist/index.html .dist/404.html
+        run: yarn run build
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
