@@ -1,8 +1,14 @@
-# React + Vite
+# Rent Cars :red_car:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to our Ukrainian car rental company, where we present you with a curated selection of our finest automobiles. 
+Explore our "Catalog" page to discover the array of vehicles we have to offer. For a deeper dive into each car's 
+specifications and features, simply click on the "Learn more" button. And if you find cars that pique your interest, 
+don't forget to add them to your "Favorites" list for easy reference. Your journey with us begins here!
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Technologies used:
+- Vite
+- HTML
+- CSS
+- SASS
+- React
+- Axios
