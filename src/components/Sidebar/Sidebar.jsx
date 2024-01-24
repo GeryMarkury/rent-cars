@@ -6,6 +6,7 @@ import CustomSelect from "./CustomSelect";
 
 export const Sidebar = () => {
 	const makes = [
+		"All brands",
 		"Buick",
 		"Volvo",
 		"HUMMER",
@@ -38,23 +39,20 @@ export const Sidebar = () => {
 				setParams({ ...params, ...values, page: 1 });
 			}}
 		>
-			<Form>
-				<CustomSelect
-					label="Car brand"
-					name="makes"
-					placeholder="Enter the text"
-				>
-					<option value="">All</option>
-					{makes.map(option => (
-						<option value={option}>{option}</option>
-					))}
-				</CustomSelect>
-				<Button
-					type="submit"
-					title="Search"
-					propClass={cssBtn.searchBtn}
-				/>
-			</Form>
+			{props => (
+				<Form>
+					<CustomSelect
+						label="Car brand"
+						name="makes"
+						options={makes}
+					></CustomSelect>
+					<Button
+						type="submit"
+						title="Search"
+						propClass={cssBtn.searchBtn}
+					/>
+				</Form>
+			)}
 		</Formik>
 	);
 };

@@ -1,17 +1,23 @@
 import { useField } from "formik";
+import Select from "react-select";
 import css from "./Sidebar.module.scss";
 
-const CustomSelect = ({ label, ...props }) => {
-	const [field] = useField(props);
+const CustomSelect = ({ label, options, ...props }) => {
+	const [field, meta, helpers] = useField(props);
 
 	return (
 		<>
 			<label>{label}</label>
-			<select
+			<Select
 				{...field}
 				{...props}
 				className={css.selectMakes}
-			></select>
+				options={options.map(option => ({ label: option, value: option }))}
+				isSearchable
+				placeholder={`Select or type ${label.toLowerCase()}`}
+				onChange={value => helpers.setValue(value)}
+				value={field.value}
+			/>
 		</>
 	);
 };
