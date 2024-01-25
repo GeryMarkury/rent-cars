@@ -4,6 +4,7 @@ import cssBtn from "/src/components/Button/Button.module.scss";
 import { Formik, Form } from "formik";
 import CustomBrandSelect from "./CustomBrandSelect";
 import CustomPriceSelect from "./CustomPriceSelect";
+import CustomMileageInput from "./CustomMileageInput";
 
 export const Sidebar = () => {
 	const makes = [
@@ -52,12 +53,18 @@ export const Sidebar = () => {
 						label="Car brand"
 						name="makes"
 						options={makes}
-					></CustomBrandSelect>
+					/>
 					<CustomPriceSelect
 						label="Price/1 hour"
 						name="price"
 						options={priceArray}
-					></CustomPriceSelect>
+					/>
+					<label htmlFor="mileage">Сar mileage / km</label>
+					<CustomMileageInput
+						label="From"
+						name="mileageFrom"
+						type="number"
+					/>
 					<Button
 						type="submit"
 						title="Search"
