@@ -2,7 +2,8 @@ import { useState } from "react";
 import Button from "../Button/Button";
 import cssBtn from "/src/components/Button/Button.module.scss";
 import { Formik, Form } from "formik";
-import CustomSelect from "./CustomSelect";
+import CustomBrandSelect from "./CustomBrandSelect";
+import CustomPriceSelect from "./CustomPriceSelect";
 
 export const Sidebar = () => {
 	const makes = [
@@ -27,8 +28,14 @@ export const Sidebar = () => {
 		"Chevrolet",
 		"Chrysler",
 		"Kia",
-		"Land",
+		"Land Rover",
 	];
+
+	const priceArray = [];
+
+	for (let i = 30; i <= 500; i += 10) {
+		priceArray.push(i);
+	}
 
 	const [params, setParams] = useState("");
 
@@ -41,11 +48,16 @@ export const Sidebar = () => {
 		>
 			{props => (
 				<Form>
-					<CustomSelect
+					<CustomBrandSelect
 						label="Car brand"
 						name="makes"
 						options={makes}
-					></CustomSelect>
+					></CustomBrandSelect>
+					<CustomPriceSelect
+						label="Price/1 hour"
+						name="price"
+						options={priceArray}
+					></CustomPriceSelect>
 					<Button
 						type="submit"
 						title="Search"

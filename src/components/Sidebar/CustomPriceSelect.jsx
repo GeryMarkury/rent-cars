@@ -2,7 +2,7 @@ import { useField } from "formik";
 import Select from "react-select";
 import css from "./Sidebar.module.scss";
 
-const CustomSelect = ({ label, options, ...props }) => {
+const CustomPriceSelect = ({ label, options, ...props }) => {
 	const [field, meta, helpers] = useField(props);
 
 	return (
@@ -13,13 +13,14 @@ const CustomSelect = ({ label, options, ...props }) => {
 				{...props}
 				className={css.selectMakes}
 				options={options.map(option => ({ label: option, value: option }))}
-				isSearchable
-				placeholder={`Select or type ${label.toLowerCase()}`}
-				onChange={value => helpers.setValue(value)}
+				placeholder={`To $`}
+				onChange={value => {
+					helpers.setValue({ label: `To ${value.label}$`, value: value.value });
+				}}
 				value={field.value}
 			/>
 		</>
 	);
 };
 
-export default CustomSelect;
+export default CustomPriceSelect;
