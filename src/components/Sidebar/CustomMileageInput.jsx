@@ -1,4 +1,6 @@
-const CustomMileageInput = (label, ...props) => {
+import { useField } from "formik";
+
+const CustomMileageInput = ({ label, ...props }) => {
 	const [field, meta, helpers] = useField(props);
 
 	return (
@@ -7,7 +9,9 @@ const CustomMileageInput = (label, ...props) => {
 			<input
 				{...field}
 				{...props}
+				className={meta.touched && meta.error ? "input-error" : ""}
 			/>
+			{meta.touched && meta.error && <div className="error">{meta.error}</div>}
 		</>
 	);
 };
