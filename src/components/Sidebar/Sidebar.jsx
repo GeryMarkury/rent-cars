@@ -65,7 +65,6 @@ export const Sidebar = () => {
 					<CustomMileageInput
 						label="From"
 						name="mileageFrom"
-						type="number"
 					/>
 					{/* <ErrorMessage
 						name="mileageFrom"
@@ -74,7 +73,6 @@ export const Sidebar = () => {
 					<CustomMileageInput
 						label="To"
 						name="mileageTo"
-						type="number"
 					/>
 					{/* <ErrorMessage
 						name="mileageTo"
