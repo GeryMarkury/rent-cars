@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../Button/Button";
 import cssBtn from "/src/components/Button/Button.module.scss";
-import { Formik, Form, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import validationSchema from "../../schemas";
 import CustomBrandSelect from "./CustomBrandSelect";
 import CustomPriceSelect from "./CustomPriceSelect";
@@ -46,6 +46,7 @@ export const Sidebar = () => {
 			initialValues={{ makes: "", price: "", mileageFrom: "", mileageTo: "" }}
 			onSubmit={values => {
 				setParams({ ...params, ...values, page: 1 });
+				console.log(values);
 			}}
 			validationSchema={validationSchema}
 		>
@@ -66,18 +67,10 @@ export const Sidebar = () => {
 						label="From"
 						name="mileageFrom"
 					/>
-					{/* <ErrorMessage
-						name="mileageFrom"
-						component="div"
-					/> */}
 					<CustomMileageInput
 						label="To"
 						name="mileageTo"
 					/>
-					{/* <ErrorMessage
-						name="mileageTo"
-						component="div"
-					/> */}
 					<Button
 						type="submit"
 						title="Search"
