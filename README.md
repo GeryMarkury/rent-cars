@@ -12,3 +12,5 @@ Technologies used:
 - SASS
 - React
 - Axios
+- Formik
+- Yup
