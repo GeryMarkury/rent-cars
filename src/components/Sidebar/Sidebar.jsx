@@ -46,7 +46,7 @@ export const Sidebar = () => {
 			initialValues={{ makes: "", price: "", mileageFrom: "", mileageTo: "" }}
 			onSubmit={values => {
 				setParams({ ...params, ...values, page: 1 });
-				console.log(values);
+				console.log(params);
 			}}
 			validationSchema={validationSchema}
 		>
