@@ -8,77 +8,124 @@ import css from "./Catalog.module.scss";
 import cssBtn from "/src/components/Button/Button.module.scss";
 
 const Catalog = () => {
-    const [cars, setCars] = useState([]);
-    const [carsInStorage, setCarsInStorage] = useState([]);
-    const [page, setPage] = useState(1);
-    const [loadMoreVisible, setLoadMoreVisible] = useState(false);
-    const [isShowModal, setIsShowModal] = useState(false);
-    const [selectedCar, setSelectedCar] = useState(null);
-    
-    const CARS_STORAGE = "cars";
+	const [cars, setCars] = useState([]);
+	const [carsInStorage, setCarsInStorage] = useState([]);
+	const [page, setPage] = useState(1);
+	const [loadMoreVisible, setLoadMoreVisible] = useState(false);
+	const [isShowModal, setIsShowModal] = useState(false);
+	const [selectedCar, setSelectedCar] = useState(null);
+	const [isFilter, setIsFilter] = useState(false);
+	const [params, setParams] = useState("");
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetchAllCars(page);
-                if (response.length < 8) {
-                    setLoadMoreVisible(false);
-                } else {
-                    setLoadMoreVisible(true);
-                }
-                setCars((prevCars) => [...prevCars, ...response]);
-            } catch (error) {
-                console.error("Error fetching cars:", error);
-            }
-        };
-        fetchData();
-    }, [page]);
+	const CARS_STORAGE = "cars";
 
-    useEffect(() => {
-        const carsDataJson = localStorage.getItem(CARS_STORAGE);
-        if (carsDataJson) {
-            const storedCars = JSON.parse(carsDataJson);
-            setCarsInStorage(storedCars);
-        } else {
-            localStorage.setItem(CARS_STORAGE, "[]")
-        }
-    }, []);
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				// if (params && isFilter) {
+				// 	const { makes, page, price, mileageFrom, mileageTo } = params;
+				// 	if (makes) {
+				// 		filterByMakes(response, makes);
+				// 	}
+				// 	if (price) {
+				// 		filterByPrice(response, price);
+				// 	}
+				// 	if (mileageFrom || mileageTo) {
+				// 		filterByMileage(response, mileageFrom, mileageTo);
+				//     }
+				//     const filterResponse = await fetchAllCars(page);
+				// }
+				const response = await fetchAllCars(page);
+				if (response.length < 8) {
+					setLoadMoreVisible(false);
+				} else {
+					setLoadMoreVisible(true);
+				}
+				setCars(prevCars => [...prevCars, ...response]);
+			} catch (error) {
+				console.error("Error fetching cars:", error);
+			}
+		};
+		fetchData();
+	}, [page]);
 
-    const addToFavorites = (car) => {
-        const updatedCars = [...carsInStorage, car];
-        setCarsInStorage(updatedCars);
-        localStorage.setItem(CARS_STORAGE, JSON.stringify(updatedCars));
-    };
-    
-    const removeFromFavorites = (car) => {
-        const updatedCars = carsInStorage.filter(item => item.id !== car.id);
-        setCarsInStorage(updatedCars);
-        localStorage.setItem(CARS_STORAGE, JSON.stringify(updatedCars));
-    };
+	useEffect(() => {
+		const carsDataJson = localStorage.getItem(CARS_STORAGE);
+		if (carsDataJson) {
+			const storedCars = JSON.parse(carsDataJson);
+			setCarsInStorage(storedCars);
+		} else {
+			localStorage.setItem(CARS_STORAGE, "[]");
+		}
+	}, []);
 
-    const handleLoadMore = () => {
-        setPage((prevPage) => prevPage + 1);
-    };
+	const addToFavorites = car => {
+		const updatedCars = [...carsInStorage, car];
+		setCarsInStorage(updatedCars);
+		localStorage.setItem(CARS_STORAGE, JSON.stringify(updatedCars));
+	};
 
-    const handleLearnMore = (carData) => {
-        setSelectedCar(carData);
-        setIsShowModal(true);
-    }
+	const removeFromFavorites = car => {
+		const updatedCars = carsInStorage.filter(item => item.id !== car.id);
+		setCarsInStorage(updatedCars);
+		localStorage.setItem(CARS_STORAGE, JSON.stringify(updatedCars));
+	};
 
-    const handleCloseModal = () => {
-        setSelectedCar(null);
-        setIsShowModal(false);
-    }
-    
-    return (
-        cars && (<div>
-            <Sidebar />
-            <CarsList cars={cars} carsInStorage={carsInStorage} addToFavorites={addToFavorites}
-                removeFromFavorites={removeFromFavorites} openModal={handleLearnMore} />
-            {isShowModal && selectedCar && <Modal carData={selectedCar} onClick={handleCloseModal} />}
-            {loadMoreVisible && <div className={css.btnContainer}><Button type="button" title="Load more" onClick={handleLoadMore} propClass={cssBtn.loadMoreBtn} /></div>}
-        </div>)
-    )
+	const handleLoadMore = () => {
+		setPage(prevPage => prevPage + 1);
+	};
+
+	const handleLearnMore = carData => {
+		setSelectedCar(carData);
+		setIsShowModal(true);
+	};
+
+	const handleCloseModal = () => {
+		setSelectedCar(null);
+		setIsShowModal(false);
+	};
+
+	const handleFilterCars = () => {
+		setIsFilter(true);
+	};
+
+	const handleUpdateParams = newParams => {
+		setParams(newParams);
+	};
+
+	return (
+		cars && (
+			<div>
+				<Sidebar
+					setFilter={handleFilterCars}
+					updateParams={handleUpdateParams}
+				/>
+				<CarsList
+					cars={cars}
+					carsInStorage={carsInStorage}
+					addToFavorites={addToFavorites}
+					removeFromFavorites={removeFromFavorites}
+					openModal={handleLearnMore}
+				/>
+				{isShowModal && selectedCar && (
+					<Modal
+						carData={selectedCar}
+						onClick={handleCloseModal}
+					/>
+				)}
+				{loadMoreVisible && (
+					<div className={css.btnContainer}>
+						<Button
+							type="button"
+							title="Load more"
+							onClick={handleLoadMore}
+							propClass={cssBtn.loadMoreBtn}
+						/>
+					</div>
+				)}
+			</div>
+		)
+	);
 };
 
 export default Catalog;

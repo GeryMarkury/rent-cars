@@ -6,34 +6,10 @@ import validationSchema from "../../schemas";
 import CustomBrandSelect from "./CustomBrandSelect";
 import CustomPriceSelect from "./CustomPriceSelect";
 import CustomMileageInput from "./CustomMileageInput";
-import { fetchAllCars } from "../../API";
-import { filterByMakes, filterByMileage, filterByPrice } from "../../../helpers/filterFunctions";
+import { makes } from "../../../helpers/makes";
 
-export const Sidebar = () => {
-	const makes = [
-		"All brands",
-		"Buick",
-		"Volvo",
-		"HUMMER",
-		"Subaru",
-		"Mitsubishi",
-		"Nissan",
-		"Lincoln",
-		"GMC",
-		"Hyundai",
-		"MINI",
-		"Bentley",
-		"Mercedes-Benz",
-		"Aston Martin",
-		"Pontiac",
-		"Lamborghini",
-		"Audi",
-		"BMW",
-		"Chevrolet",
-		"Chrysler",
-		"Kia",
-		"Land Rover",
-	];
+export const Sidebar = ({ setFilter, updateParams }) => {
+	const [params, setParams] = useState("");
 
 	const priceArray = [];
 
@@ -41,32 +17,31 @@ export const Sidebar = () => {
 		priceArray.push(i);
 	}
 
-	const [params, setParams] = useState("");
-
-	const handleOnSubmit = async params => {
-		const { makes, page, price, mileageFrom, mileageTo } = params;
-		try {
-			const response = await fetchAllCars(page);
-			if (makes) {
-				filterByMakes(response, makes);
-			}
-			if (price) {
-				filterByPrice(response, price);
-			}
-			if (mileageFrom || mileageTo) {
-				filterByMileage(response, mileageFrom, mileageTo);
-			}
-		} catch (error) {
-			console.error("Error fetching cars:", error);
-		}
-	};
+	// const handleOnSubmit = async params => {
+	// 	const { makes, page, price, mileageFrom, mileageTo } = params;
+	// 	try {
+	// 		const response = await fetchAllCars(page);
+	// 		if (makes) {
+	// 			filterByMakes(response, makes);
+	// 		}
+	// 		if (price) {
+	// 			filterByPrice(response, price);
+	// 		}
+	// 		if (mileageFrom || mileageTo) {
+	// 			filterByMileage(response, mileageFrom, mileageTo);
+	// 		}
+	// 	} catch (error) {
+	// 		console.error("Error fetching cars:", error);
+	// 	}
+	// };
 
 	return (
 		<Formik
 			initialValues={{ makes: "", price: "", mileageFrom: "", mileageTo: "" }}
 			onSubmit={values => {
 				setParams({ ...params, ...values, page: 1 });
-				handleOnSubmit(params);
+				setFilter();
+				updateParams(params);
 			}}
 			validationSchema={validationSchema}
 		>
@@ -82,7 +57,7 @@ export const Sidebar = () => {
 						name="price"
 						options={priceArray}
 					/>
-					<label htmlFor="mileage">Сar mileage / km</label>
+					<p>Сar mileage / km</p>
 					<CustomMileageInput
 						label="From"
 						name="mileageFrom"
