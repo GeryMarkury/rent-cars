@@ -6,6 +6,7 @@ import Modal from "../../components/Modal/Modal";
 import { fetchAllCars } from "../../API";
 import css from "./Catalog.module.scss";
 import cssBtn from "/src/components/Button/Button.module.scss";
+import { filterByMakes, filterByPrice, filterByMileage } from "../../../helpers/filterFunctions";
 
 const Catalog = () => {
 	const [cars, setCars] = useState([]);
@@ -15,39 +16,37 @@ const Catalog = () => {
 	const [isShowModal, setIsShowModal] = useState(false);
 	const [selectedCar, setSelectedCar] = useState(null);
 	const [isFilter, setIsFilter] = useState(false);
-	const [params, setParams] = useState("");
+	const [params, setParams] = useState({});
 
 	const CARS_STORAGE = "cars";
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				// if (params && isFilter) {
-				// 	const { makes, page, price, mileageFrom, mileageTo } = params;
-				// 	if (makes) {
-				// 		filterByMakes(response, makes);
-				// 	}
-				// 	if (price) {
-				// 		filterByPrice(response, price);
-				// 	}
-				// 	if (mileageFrom || mileageTo) {
-				// 		filterByMileage(response, mileageFrom, mileageTo);
-				//     }
-				//     const filterResponse = await fetchAllCars(page);
-				// }
 				const response = await fetchAllCars(page);
-				if (response.length < 8) {
-					setLoadMoreVisible(false);
-				} else {
-					setLoadMoreVisible(true);
+				let filteredCars = [...response];
+				if (isFilter) {
+					console.log(params);
+					const { makes, price, mileageFrom, mileageTo } = params;
+					if (makes) {
+						filteredCars = filterByMakes(filteredCars, makes);
+					}
+					if (price) {
+						filteredCars = filterByPrice(filteredCars, price.value);
+					}
+					if (mileageFrom || mileageTo) {
+						filteredCars = filterByMileage(filteredCars, mileageFrom, mileageTo);
+					}
 				}
-				setCars(prevCars => [...prevCars, ...response]);
+				setCars(filteredCars);
+				setLoadMoreVisible(filteredCars.length >= 8);
+				console.log("Filtered cars:", filteredCars);
 			} catch (error) {
 				console.error("Error fetching cars:", error);
 			}
 		};
 		fetchData();
-	}, [page]);
+	}, [page, isFilter, params]);
 
 	useEffect(() => {
 		const carsDataJson = localStorage.getItem(CARS_STORAGE);

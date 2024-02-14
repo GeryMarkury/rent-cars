@@ -17,31 +17,13 @@ export const Sidebar = ({ setFilter, updateParams }) => {
 		priceArray.push(i);
 	}
 
-	// const handleOnSubmit = async params => {
-	// 	const { makes, page, price, mileageFrom, mileageTo } = params;
-	// 	try {
-	// 		const response = await fetchAllCars(page);
-	// 		if (makes) {
-	// 			filterByMakes(response, makes);
-	// 		}
-	// 		if (price) {
-	// 			filterByPrice(response, price);
-	// 		}
-	// 		if (mileageFrom || mileageTo) {
-	// 			filterByMileage(response, mileageFrom, mileageTo);
-	// 		}
-	// 	} catch (error) {
-	// 		console.error("Error fetching cars:", error);
-	// 	}
-	// };
-
 	return (
 		<Formik
 			initialValues={{ makes: "", price: "", mileageFrom: "", mileageTo: "" }}
 			onSubmit={values => {
-				setParams({ ...params, ...values, page: 1 });
+				setParams({ ...values, page: 1 });
 				setFilter();
-				updateParams(params);
+				updateParams({ ...values, page: 1 });
 			}}
 			validationSchema={validationSchema}
 		>

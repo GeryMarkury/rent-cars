@@ -11,10 +11,12 @@ export const filterByPrice = (cars, price) => {
 
 export const filterByMileage = (cars, mileageFrom, mileageTo) => {
 	if (mileageFrom && !mileageTo) {
-		return cars.filter(car => car.mileage >= mileageFrom);
+		return cars.filter(car => car.mileage >= Number(mileageFrom));
 	} else if (!mileageFrom && mileageTo) {
-		return cars.filter(car => car.mileage <= mileageTo);
+		return cars.filter(car => car.mileage <= Number(mileageTo));
 	} else if (mileageFrom && mileageTo) {
-		return cars.filter(car => mileageFrom <= car.mileage <= mileageTo);
+		return cars.filter(
+			car => Number(mileageFrom) <= car.mileage && car.mileage <= Number(mileageTo),
+		);
 	}
 };
