@@ -25,11 +25,15 @@ const Catalog = () => {
 			try {
 				const response = await fetchAllCars(page);
 				let filteredCars = [...response];
+				// if (filteredCars.length <= 8) {
+				// 	setPage(null);
+				// }
+				// console.log(page);
+				// console.log(filteredCars);
 				if (isFilter) {
-					console.log(params);
 					const { makes, price, mileageFrom, mileageTo } = params;
 					if (makes) {
-						filteredCars = filterByMakes(filteredCars, makes);
+						filteredCars = filterByMakes(filteredCars, makes.value);
 					}
 					if (price) {
 						filteredCars = filterByPrice(filteredCars, price.value);
@@ -37,10 +41,11 @@ const Catalog = () => {
 					if (mileageFrom || mileageTo) {
 						filteredCars = filterByMileage(filteredCars, mileageFrom, mileageTo);
 					}
+					setCars(filteredCars);
+				} else {
+					setCars(prevCars => [...prevCars, ...filteredCars]);
 				}
-				setCars(filteredCars);
 				setLoadMoreVisible(filteredCars.length >= 8);
-				console.log("Filtered cars:", filteredCars);
 			} catch (error) {
 				console.error("Error fetching cars:", error);
 			}

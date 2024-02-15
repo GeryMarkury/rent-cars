@@ -1,4 +1,7 @@
 export const filterByMakes = (cars, makes) => {
+	if (makes === "All brands") {
+		return cars;
+	}
 	return cars.filter(car => car.make === makes);
 };
 

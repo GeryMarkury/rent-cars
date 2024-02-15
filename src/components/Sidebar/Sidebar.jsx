@@ -9,7 +9,7 @@ import CustomMileageInput from "./CustomMileageInput";
 import { makes } from "../../../helpers/makes";
 
 export const Sidebar = ({ setFilter, updateParams }) => {
-	const [params, setParams] = useState("");
+	const [params, setParams] = useState({});
 
 	const priceArray = [];
 
@@ -21,9 +21,9 @@ export const Sidebar = ({ setFilter, updateParams }) => {
 		<Formik
 			initialValues={{ makes: "", price: "", mileageFrom: "", mileageTo: "" }}
 			onSubmit={values => {
-				setParams({ ...values, page: 1 });
+				setParams({ ...values });
 				setFilter();
-				updateParams({ ...values, page: 1 });
+				updateParams({ ...values });
 			}}
 			validationSchema={validationSchema}
 		>
