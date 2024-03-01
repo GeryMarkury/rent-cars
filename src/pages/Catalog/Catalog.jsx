@@ -25,11 +25,7 @@ const Catalog = () => {
 			try {
 				const response = await fetchAllCars(page);
 				let filteredCars = [...response];
-				// if (filteredCars.length <= 8) {
-				// 	setPage(null);
-				// }
-				// console.log(page);
-				// console.log(filteredCars);
+
 				if (isFilter) {
 					const { makes, price, mileageFrom, mileageTo } = params;
 					if (makes) {
@@ -41,9 +37,13 @@ const Catalog = () => {
 					if (mileageFrom || mileageTo) {
 						filteredCars = filterByMileage(filteredCars, mileageFrom, mileageTo);
 					}
-					setCars(filteredCars);
+					setCars(prevCars => [...prevCars, ...filteredCars]);
+					console.log(filteredCars);
+					console.log(page);
 				} else {
 					setCars(prevCars => [...prevCars, ...filteredCars]);
+					console.log(cars);
+					console.log(page);
 				}
 				setLoadMoreVisible(filteredCars.length >= 8);
 			} catch (error) {
@@ -90,7 +90,9 @@ const Catalog = () => {
 	};
 
 	const handleFilterCars = () => {
+		setCars([]);
 		setIsFilter(true);
+		setPage(1);
 	};
 
 	const handleUpdateParams = newParams => {
@@ -98,12 +100,12 @@ const Catalog = () => {
 	};
 
 	return (
-		cars && (
-			<div>
-				<Sidebar
-					setFilter={handleFilterCars}
-					updateParams={handleUpdateParams}
-				/>
+		<>
+			<Sidebar
+				setFilter={handleFilterCars}
+				updateParams={handleUpdateParams}
+			/>
+			{cars.length ? (
 				<CarsList
 					cars={cars}
 					carsInStorage={carsInStorage}
@@ -111,24 +113,26 @@ const Catalog = () => {
 					removeFromFavorites={removeFromFavorites}
 					openModal={handleLearnMore}
 				/>
-				{isShowModal && selectedCar && (
-					<Modal
-						carData={selectedCar}
-						onClick={handleCloseModal}
+			) : (
+				<p>There are no cars matching this request.</p>
+			)}
+			{isShowModal && selectedCar && (
+				<Modal
+					carData={selectedCar}
+					onClick={handleCloseModal}
+				/>
+			)}
+			{loadMoreVisible && (
+				<div className={css.btnContainer}>
+					<Button
+						type="button"
+						title="Load more"
+						onClick={handleLoadMore}
+						propClass={cssBtn.loadMoreBtn}
 					/>
-				)}
-				{loadMoreVisible && (
-					<div className={css.btnContainer}>
-						<Button
-							type="button"
-							title="Load more"
-							onClick={handleLoadMore}
-							propClass={cssBtn.loadMoreBtn}
-						/>
-					</div>
-				)}
-			</div>
-		)
+				</div>
+			)}
+		</>
 	);
 };
 
