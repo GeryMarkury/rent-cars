@@ -24,10 +24,14 @@ const Catalog = () => {
 		const fetchData = async () => {
 			try {
 				const response = await fetchAllCars(page);
-				let filteredCars = [...response];
+				let resCars = [...response];
 
 				if (isFilter) {
+					const filterResponse = await fetchAllCars(null);
+					let filteredCars = [...filterResponse];
+
 					const { makes, price, mileageFrom, mileageTo } = params;
+
 					if (makes) {
 						filteredCars = filterByMakes(filteredCars, makes.value);
 					}
@@ -37,15 +41,11 @@ const Catalog = () => {
 					if (mileageFrom || mileageTo) {
 						filteredCars = filterByMileage(filteredCars, mileageFrom, mileageTo);
 					}
-					setCars(prevCars => [...prevCars, ...filteredCars]);
-					console.log(filteredCars);
-					console.log(page);
+					setCars([...filteredCars]);
 				} else {
-					setCars(prevCars => [...prevCars, ...filteredCars]);
-					console.log(cars);
-					console.log(page);
+					setCars(prevCars => [...prevCars, ...resCars]);
 				}
-				setLoadMoreVisible(filteredCars.length >= 8);
+				setLoadMoreVisible(!isFilter && resCars.length >= 8);
 			} catch (error) {
 				console.error("Error fetching cars:", error);
 			}
@@ -92,7 +92,6 @@ const Catalog = () => {
 	const handleFilterCars = () => {
 		setCars([]);
 		setIsFilter(true);
-		setPage(1);
 	};
 
 	const handleUpdateParams = newParams => {
