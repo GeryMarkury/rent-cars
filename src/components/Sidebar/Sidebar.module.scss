@@ -1,7 +1,22 @@
 @import "../../scss/";
 
-.selectMakes {
-	width: 224px;
+.sidebarForm {
+	display: flex;
+	gap: 18px;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 50px;
+}
+
+.selectLabel {
+	font-weight: $fontWeightMedium;
+	font-size: $mainFontSize;
+	line-height: calc(18 / 14);
+	color: #8a8a89;
+}
+
+.selectPrice {
+	width: 125px;
 	height: 48px;
 }
 

@@ -7,6 +7,7 @@ import CustomBrandSelect from "./CustomBrandSelect";
 import CustomPriceSelect from "./CustomPriceSelect";
 import CustomMileageInput from "./CustomMileageInput";
 import { makes } from "../../../helpers/makes";
+import css from "./Sidebar.module.scss";
 
 export const Sidebar = ({ setFilter, updateParams }) => {
 	const [params, setParams] = useState({});
@@ -28,26 +29,32 @@ export const Sidebar = ({ setFilter, updateParams }) => {
 			validationSchema={validationSchema}
 		>
 			{props => (
-				<Form>
-					<CustomBrandSelect
-						label="Car brand"
-						name="makes"
-						options={makes}
-					/>
-					<CustomPriceSelect
-						label="Price/1 hour"
-						name="price"
-						options={priceArray}
-					/>
-					<p>Сar mileage / km</p>
-					<CustomMileageInput
-						label="From"
-						name="mileageFrom"
-					/>
-					<CustomMileageInput
-						label="To"
-						name="mileageTo"
-					/>
+				<Form className={css.sidebarForm}>
+					<div>
+						<CustomBrandSelect
+							label="Car brand"
+							name="makes"
+							options={makes}
+						/>
+					</div>
+					<div>
+						<CustomPriceSelect
+							label="Price/1 hour"
+							name="price"
+							options={priceArray}
+						/>
+					</div>
+					<div>
+						<p className={css.selectLabel}>Сar mileage / km</p>
+						<CustomMileageInput
+							label="From"
+							name="mileageFrom"
+						/>
+						<CustomMileageInput
+							label="To"
+							name="mileageTo"
+						/>
+					</div>
 					<Button
 						type="submit"
 						title="Search"
